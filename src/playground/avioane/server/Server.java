@@ -78,7 +78,7 @@ public class Server implements Runnable
 			
 			try
 			{
-				serverSocket.setSoTimeout (1000); // 1 sec
+				serverSocket.setSoTimeout (5000); // 5 sec
 			}
 			catch (SocketException e2)
 			{
