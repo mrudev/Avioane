@@ -1,6 +1,6 @@
 package playground.avioane.game;
 
-import java.awt.Point;
+import java.awt.Rectangle;
 
 /**
  * Code-Playground
@@ -12,7 +12,12 @@ import java.awt.Point;
  */
 public class Cell
 {
-	private Point loc;
+	private final int CELL_SIZE = 10;
+	
+	/*
+	 * Private members
+	 */
+	private Rectangle loc;
 	private boolean isHit;
 	
 	/**
@@ -20,16 +25,16 @@ public class Cell
 	 */
 	public Cell (int x, int y)
 	{
-		setLoc (new Point (x, y));
+		setLoc (new Rectangle (x, y, CELL_SIZE, CELL_SIZE));
 		setHit (false);
 	}
 
-	public Point getLoc ()
+	public Rectangle getLoc ()
 	{
 		return loc;
 	}
 
-	public void setLoc (Point loc)
+	public void setLoc (Rectangle loc)
 	{
 		this.loc = loc;
 	}
