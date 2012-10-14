@@ -3,6 +3,11 @@ package playground.avioane;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -34,6 +39,13 @@ public class Main
 	 */
 	private static Text ipTxt;
 	private static Text portTxt;
+	private static Text head1;
+	private static Text tail1;
+	private static Text head2;
+	private static Text tail2;
+	private static Text head3;
+	private static Text tail3;
+	private static Text hitTxt;
 	
 	/**
 	 * @param args
@@ -45,6 +57,10 @@ public class Main
 		initDisplay ();
 		
 		createConnectivityMenu ();
+		
+		createGameControls ();
+		
+		createPlayground ();
 		
 		while (!shell.isDisposed ())
 		{
@@ -70,6 +86,7 @@ public class Main
 	{
 		display = new Display ();
 		shell = new Shell (display);
+		shell.setBounds (200, 200, 600, 600);
 		
 //		shell.pack();
 		shell.open ();
@@ -103,11 +120,55 @@ public class Main
 	}
 	
 	/**
+	 * Creates the playground areas
+	 */
+	private static void createPlayground ()
+	{
+		Canvas myGrid = new Canvas (shell, SWT.NONE);
+		
+		myGrid.setBounds (10, 10, 230, 230);
+		
+		// Create a paint handler for the canvas
+		myGrid.addPaintListener (new PaintListener () 
+		{
+	      public void paintControl (PaintEvent e) 
+	      {
+	        e.gc.setForeground (e.display.getSystemColor (SWT.COLOR_BLACK));
+	        
+	        for (int i = 0; i < 11; i++)
+	        {
+	        	e.gc.drawLine (10 + i * 20, 10, 10 + i * 20, 210);
+	        	e.gc.drawLine (10, 10 + i * 20, 210, 10 + i * 20);
+	        }
+	      }
+	    });
+		
+		Canvas opponentGrid = new Canvas (shell, SWT.NONE);
+		
+		opponentGrid.setBounds (10, 250, 230, 230);
+		
+		// Create a paint handler for the canvas
+		opponentGrid.addPaintListener (new PaintListener () 
+		{
+	      public void paintControl (PaintEvent e) 
+	      {
+	        e.gc.setForeground (e.display.getSystemColor (SWT.COLOR_BLACK));
+
+	        for (int i = 0; i < 11; i++)
+	        {
+	        	e.gc.drawLine (10 + i * 20, 10, 10 + i * 20, 210);
+	        	e.gc.drawLine (10, 10 + i * 20, 210, 10 + i * 20);
+	        }
+	      }
+	    });
+	}
+	
+	/**
 	 * Creates the connectivity controls area
 	 */
 	private static void createConnectivityMenu ()
 	{
-		shell.setLayout(null);
+		shell.setLayout (null);
 		
 		// Create the controls
 		Label lblIp = new Label (shell, SWT.NONE);
@@ -118,12 +179,12 @@ public class Main
 		final Button btnDisconnect = new Button (shell, SWT.NONE);
 		
 		// Set controls location
-		lblIp.setBounds (225, 35, 13, 17);
-		ipTxt.setBounds (350, 35, 125, 27);
-		lblPort.setBounds (225, 70, 30, 17);
-		portTxt.setBounds (350, 70, 50, 27);
-		btnConnect.setBounds (225, 105, 100, 29);
-		btnDisconnect.setBounds (350, 105, 100, 29);
+		lblIp.setBounds (260, 35, 13, 17);
+		ipTxt.setBounds (385, 35, 125, 27);
+		lblPort.setBounds (260, 70, 30, 17);
+		portTxt.setBounds (385, 70, 50, 27);
+		btnConnect.setBounds (260, 105, 100, 29);
+		btnDisconnect.setBounds (385, 105, 100, 29);
 		
 		// Set controls properties
 		lblPort.setText ("Port");
@@ -180,4 +241,57 @@ public class Main
 			public void mouseDoubleClick (MouseEvent e) { /*TODO:*/ }
 		});
 	}
+	
+	/**
+	 * Creates game controls area
+	 */
+	public static void createGameControls ()
+	{
+		// Create the controls
+		Label lblPlane1 = new Label (shell, SWT.NONE);
+		head1 = new Text (shell, SWT.BORDER);
+		tail1 = new Text (shell, SWT.BORDER);
+		Label lblPlane2 = new Label (shell, SWT.NONE);
+		head2 = new Text (shell, SWT.BORDER);
+		tail2 = new Text (shell, SWT.BORDER);
+		Label lblPlane3 = new Label (shell, SWT.NONE);
+		head3 = new Text (shell, SWT.BORDER);
+		tail3 = new Text (shell, SWT.BORDER);
+		
+		hitTxt = new Text (shell, SWT.BORDER);
+		
+		final Button btnDonePlane1 = new Button (shell, SWT.NONE);
+		final Button btnDonePlane2 = new Button (shell, SWT.NONE);
+		final Button btnDone = new Button (shell, SWT.NONE);
+		final Button btnHit = new Button (shell, SWT.NONE);
+		
+		// Set controls location
+		lblPlane1.setBounds (260, 260, 50, 17);
+		head1.setBounds (320, 260, 40, 17);
+		tail1.setBounds (380, 260, 40, 17);
+		lblPlane2.setBounds (260, 290, 50, 17);
+		head2.setBounds (320, 290, 40, 17);
+		tail2.setBounds (380, 290, 40, 17);
+		lblPlane3.setBounds (260, 320, 50, 17);
+		head3.setBounds (320, 320, 40, 17);
+		tail3.setBounds (380, 320, 40, 17);
+		
+		hitTxt.setBounds (260, 360, 40, 17);
+		
+		btnDonePlane1.setBounds (440, 260, 40, 17);
+		btnDonePlane2.setBounds (440, 290, 40, 17);
+		btnDone.setBounds (440, 320, 40, 17);
+		btnHit.setBounds (320, 360, 40, 17);
+		
+		// Set controls properties
+		lblPlane1.setText ("Plane 1");
+		lblPlane2.setText ("Plane 2");
+		lblPlane3.setText ("Plane 3");
+		btnDonePlane1.setText ("Done");
+		btnDonePlane2.setText ("Done");
+		btnDone.setText ("Done");
+		btnHit.setText ("Hit");
+	}
+	
+	
 }
