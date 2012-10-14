@@ -10,5 +10,23 @@ package playground.avioane.game;
  */
 public class Player
 {
+	private Plane[] planes = new Plane[3];
+	
+	/**
+	 * Construct
+	 */
+	public Player ()
+	{
+		
+	}
 
+	public Plane[] getPlanes ()
+	{
+		return planes;
+	}
+
+	public void setPlanes (Plane[] planes)
+	{
+		this.planes = planes;
+	}
 }

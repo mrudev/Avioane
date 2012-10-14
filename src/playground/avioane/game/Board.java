@@ -1,5 +1,6 @@
 package playground.avioane.game;
 
+
 /**
  * Code-Playground
  * 
@@ -10,5 +11,13 @@ package playground.avioane.game;
  */
 public class Board
 {
-
+	Cell[][] board = new Cell [10][10];
+	
+	/**
+	 * Construct
+	 */
+	public Board ()
+	{
+		
+	}
 }
