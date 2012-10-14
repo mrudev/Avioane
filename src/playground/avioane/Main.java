@@ -5,8 +5,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -33,6 +33,9 @@ public class Main
 	private static Display display;
 	private static Shell shell;
 	private static Server server;
+	
+	private static Canvas myGrid;
+	private static Canvas opponentGrid;
 	
 	/*
 	 * Controls declaration
@@ -61,6 +64,8 @@ public class Main
 		createGameControls ();
 		
 		createPlayground ();
+		
+		drawPlane ();
 		
 		while (!shell.isDisposed ())
 		{
@@ -124,7 +129,7 @@ public class Main
 	 */
 	private static void createPlayground ()
 	{
-		Canvas myGrid = new Canvas (shell, SWT.NONE);
+		myGrid = new Canvas (shell, SWT.NONE);
 		
 		myGrid.setBounds (10, 10, 230, 230);
 		
@@ -143,7 +148,7 @@ public class Main
 	      }
 	    });
 		
-		Canvas opponentGrid = new Canvas (shell, SWT.NONE);
+		opponentGrid = new Canvas (shell, SWT.NONE);
 		
 		opponentGrid.setBounds (10, 250, 230, 230);
 		
@@ -293,5 +298,115 @@ public class Main
 		btnHit.setText ("Hit");
 	}
 	
-	
+	/**
+	 * Draws a plane on the grid
+	 */
+	private static void drawPlane ()//(Point head, Point tail)
+	{
+		 myGrid.addPaintListener (new PaintListener ()
+		 {
+			@Override
+			public void paintControl (PaintEvent e) 
+			{
+				int x = 110, y = 90;
+				
+				e.gc.setForeground (e.display.getSystemColor (SWT.COLOR_DARK_CYAN));
+				e.gc.setLineWidth (3);
+				
+				// Plane down
+				
+//				e.gc.drawLine (x, y, x, y + 20);
+//				e.gc.drawLine (x + 20, y + 20, x + 20, y + 40);
+//				e.gc.drawLine (x, y + 40, x, y + 60);
+//				e.gc.drawLine (x + 20, y + 60, x + 20, y + 80);
+//				
+//				e.gc.drawLine (x - 20, y, x - 20, y + 20);
+//				e.gc.drawLine (x - 40, y + 20, x - 40, y + 40);
+//				e.gc.drawLine (x - 20, y + 40, x - 20, y + 60);
+//				e.gc.drawLine (x - 40, y + 60, x - 40, y + 80);
+//			
+//				e.gc.drawLine (x, y, x - 20, y);
+//				e.gc.drawLine (x + 20, y + 80, x - 40, y + 80);
+//				
+//				e.gc.drawLine (x, y + 20, x + 20, y + 20);
+//				e.gc.drawLine (x + 20, y + 40, x, y + 40);
+//				e.gc.drawLine (x, y + 60, x + 20, y + 60);
+//				
+//				e.gc.drawLine (x - 20, y + 20, x - 40, y + 20);
+//				e.gc.drawLine (x - 40, y + 40, x - 20, y + 40);
+//				e.gc.drawLine (x - 20, y + 60, x - 40, y + 60);
+				
+				// Plane up
+				
+//				e.gc.drawLine (x, y, x, y - 20);
+//				e.gc.drawLine (x - 20, y - 20, x - 20, y - 40);
+//				e.gc.drawLine (x, y - 40, x, y - 60);
+//				e.gc.drawLine (x - 20, y - 60, x - 20, y - 80);
+//				
+//				e.gc.drawLine (x + 20, y, x + 20, y - 20);
+//				e.gc.drawLine (x + 40, y - 20, x + 40, y - 40);
+//				e.gc.drawLine (x + 20, y - 40, x + 20, y - 60);
+//				e.gc.drawLine (x + 40, y - 60, x + 40, y - 80);
+//
+//				e.gc.drawLine (x, y, x + 20, y);
+//				e.gc.drawLine (x - 20, y - 80, x + 40, y - 80);
+//				
+//				e.gc.drawLine (x, y - 20, x - 20, y - 20);
+//				e.gc.drawLine (x - 20, y - 40, x, y - 40);
+//				e.gc.drawLine (x, y - 60, x - 20, y - 60);
+//				
+//				e.gc.drawLine (x + 20, y - 20, x + 40, y - 20);
+//				e.gc.drawLine (x + 40, y - 40, x + 20, y - 40);
+//				e.gc.drawLine (x + 20, y - 60, x + 40, y - 60);
+				
+				// Plane left
+				
+				e.gc.drawLine (x, y, x - 20, y);
+				e.gc.drawLine (x - 20, y - 20, x - 40, y - 20);
+				e.gc.drawLine (x - 40, y, x - 60, y);
+				e.gc.drawLine (x - 60, y - 20, x - 80, y - 20);
+				
+				e.gc.drawLine (x, y - 20, x - 20, y - 20);
+				e.gc.drawLine (x - 20, y - 40, x - 40, y - 40);
+				e.gc.drawLine (x - 40, y - 20, x - 60, y - 20);
+				e.gc.drawLine (x - 60, y - 40, x - 80, y - 40);
+//				
+//
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+				
+				// Plane right
+				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+//				e.gc.drawLine ();
+			}
+		});
+	}
 }
