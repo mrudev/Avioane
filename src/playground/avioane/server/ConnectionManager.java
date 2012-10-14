@@ -6,7 +6,9 @@ import java.util.ArrayList;
 /**
  * Code-Playground
  * 
- * @author mrudev, cubiks
+ * Avioane
+ * 
+ * @authors mrudev, cubiks
  *
  */
 public final class ConnectionManager
@@ -58,7 +60,7 @@ public final class ConnectionManager
 	{
 		for (Connection con : connections)
 		{
-			if (con != null)
+			if (con != null) // TODO: condition
 				return con;
 		}
 		
@@ -66,16 +68,48 @@ public final class ConnectionManager
 	}
 	
 	/**
+	 * Retrieves an active connection
+	 * 
+	 * @param id - id of the connection to be retrieved
+	 * @return
+	 */
+	public static Connection getConnection (int index)
+	{
+		return connections.get (index);
+	}
+	
+	/**
 	 * Removes a connection from the list
-	 * @param id
+	 * 
+	 * @param con - connection context
 	 */
 	public static void removeConnection (Connection con)
 	{
-		if (con != null)
+		killConnection (con);
+		
+		connections.remove (con);
+	}
+	
+	/**
+	 * Removes a connection from the list
+	 * 
+	 * @param id
+	 */
+	public static void removeConnection (int index)
+	{
+		killConnection (getConnection (index));
+		
+		connections.remove (index);
+	}
+	
+	/**
+	 * Removes all connections
+	 */
+	public static void removeAllConnections ()
+	{
+		for (int i = 0; i < connections.size (); i++)
 		{
-			killConnection (con);
-			
-			connections.remove (con);
+			removeConnection (i);
 		}
 	}
 	
@@ -84,7 +118,7 @@ public final class ConnectionManager
 	 */
 	private static void killConnection (Connection con)
 	{
-		if (con.isAlive ())
+		if (null != con && con.isAlive ())
 			con.kill ();
 	}
 }

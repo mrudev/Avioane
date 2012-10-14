@@ -7,13 +7,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import playground.avioane.server.ConnectionManager;
 import playground.avioane.server.Server;
 import org.eclipse.swt.widgets.Label;
-import swing2swt.layout.BoxLayout;
 import org.eclipse.swt.widgets.Button;
 
 /**
  * Code-Playground
+ * 
+ * Avioane
  * 
  * @authors mrudev, cubiks
  *
@@ -52,11 +54,13 @@ public class Main
 			}
 		}
 		
+		ConnectionManager.removeAllConnections ();
+		
 		deinitServer ();
 		
 		deinitDisplay ();
 		
-		System.out.println ("> Exit");
+		System.out.println ("Main> Exit");
 	}
 	
 	/**
@@ -66,9 +70,8 @@ public class Main
 	{
 		display = new Display ();
 		shell = new Shell (display);
-		shell.setLayout (new BoxLayout (BoxLayout.X_AXIS));
 		
-		shell.pack();
+//		shell.pack();
 		shell.open ();
 	}
 	
@@ -104,6 +107,8 @@ public class Main
 	 */
 	private static void createConnectivityMenu ()
 	{
+		shell.setLayout(null);
+		
 		// Create the controls
 		Label lblIp = new Label (shell, SWT.NONE);
 		ipTxt = new Text (shell, SWT.BORDER);
@@ -111,6 +116,14 @@ public class Main
 		portTxt = new Text (shell, SWT.BORDER);
 		final Button btnConnect = new Button (shell, SWT.NONE);
 		final Button btnDisconnect = new Button (shell, SWT.NONE);
+		
+		// Set controls location
+		lblIp.setBounds (225, 35, 13, 17);
+		ipTxt.setBounds (350, 35, 125, 27);
+		lblPort.setBounds (225, 70, 30, 17);
+		portTxt.setBounds (350, 70, 50, 27);
+		btnConnect.setBounds (225, 105, 100, 29);
+		btnDisconnect.setBounds (350, 105, 100, 29);
 		
 		// Set controls properties
 		lblPort.setText ("Port");
@@ -129,26 +142,22 @@ public class Main
 				String ip = ipTxt.getText ();
 				String port = portTxt.getText ();
 				
-				if (null == ip || null == port)
+				if (ip.isEmpty () || port.isEmpty ())
 					return;
 				
 				btnConnect.setEnabled (false);
 				btnDisconnect.setEnabled (true);
 				
-				System.out.println ("Connect to <"+ip+":"+port+">");
+				ConnectionManager.addConnection (ip, Integer.parseInt (port));
+				
+				System.out.println ("Connect to <" + ip + ":" + port + ">");
 			}
 			
 			@Override
-			public void mouseDown (MouseEvent e)
-			{
-				//
-			}
+			public void mouseDown (MouseEvent e) { /*TODO:*/ }
 			
 			@Override
-			public void mouseDoubleClick (MouseEvent e)
-			{
-				//
-			}
+			public void mouseDoubleClick (MouseEvent e) { /*TODO:*/ }
 		});
 		
 		btnDisconnect.addMouseListener (new MouseListener ()
@@ -159,20 +168,16 @@ public class Main
 				btnConnect.setEnabled (true);
 				btnDisconnect.setEnabled (false);
 				
-				System.out.println ("Disconnecting...");
+				ConnectionManager.removeConnection (ConnectionManager.getConnection ("id"));
+				
+				System.out.println ("Main> Disconnecting...");
 			}
 			
 			@Override
-			public void mouseDown (MouseEvent e)
-			{
-				//
-			}
+			public void mouseDown (MouseEvent e) { /*TODO:*/ }
 			
 			@Override
-			public void mouseDoubleClick (MouseEvent e)
-			{
-				//
-			}
+			public void mouseDoubleClick (MouseEvent e) { /*TODO:*/ }
 		});
 	}
 }

@@ -4,13 +4,16 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
  * Code-Playground
  * 
- * @author mrudev, cubiks
+ * Avioane
+ * 
+ * @authors mrudev, cubiks
  *
  */
 public class Connection implements Runnable
@@ -26,13 +29,21 @@ public class Connection implements Runnable
 	BufferedReader input;
 	
 	/**
-	 * Default constructor
+	 * Construct
+	 * 
+	 * @param con - socket connection handle
 	 */
 	public Connection (Socket con)
 	{
 		this.connection = con;
 	}
 	
+	/**
+	 * Construct
+	 * 
+	 * @param host - host/ip address
+	 * @param port - host port number
+	 */
 	public Connection (String host, int port)
 	{
 		initConnection (host, port);
@@ -44,6 +55,8 @@ public class Connection implements Runnable
 	@Override
 	public void run ()
 	{
+		System.out.println ("Connection> Client running...");
+		
 		isRunning = initCommunication ();
 		
 		// Loop around
@@ -58,7 +71,7 @@ public class Connection implements Runnable
 					// Read the command from the input stream
 					received = input.readLine ();
 					
-					System.out.println ("Received: " + received);
+					System.out.println ("Connection> Received: " + received);
 				}
 			}
 			catch (IOException e)
@@ -81,6 +94,8 @@ public class Connection implements Runnable
 		deinitCommunication ();
 		
 		deinitConnection ();
+		
+		System.out.println ("Connection> Exit");
 	}
 	
 	/**
@@ -142,9 +157,13 @@ public class Connection implements Runnable
 		{
 			e.printStackTrace();
 		}
-		catch (IOException e)
+		catch (ConnectException e1)
 		{
-			e.printStackTrace();
+			e1.printStackTrace();
+		}
+		catch (IOException e2)
+		{
+			e2.printStackTrace();
 		}
 		
 		return false;

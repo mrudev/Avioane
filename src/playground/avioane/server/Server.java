@@ -8,7 +8,9 @@ import java.net.SocketTimeoutException;
 /**
  * Code-Playground
  * 
- * @author mrudev, cubiks
+ * Avioane
+ * 
+ * @authors mrudev, cubiks
  *
  */
 public class Server implements Runnable
@@ -17,7 +19,7 @@ public class Server implements Runnable
 	 * Private members
 	 */
 	
-	private final int PORT = 9070;
+	private final int PORT = 9011;
 	private boolean isRunning;
 	private ServerSocket serverSocket; // Socket ID
 	
@@ -43,7 +45,7 @@ public class Server implements Runnable
 			}
 			catch (SocketTimeoutException e)
 			{
-				System.out.println ("> Exception - Timeout reached");
+				System.out.println ("Server> Exception - Timeout reached");
 			}
 			catch (IOException e1)
 			{
